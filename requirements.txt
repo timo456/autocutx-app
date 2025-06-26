@@ -1,0 +1,7 @@
+streamlit
+moviepy
+numpy
+pillow
+opencv-python
+scikit-learn
+openai-whisper
