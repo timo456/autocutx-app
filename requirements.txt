@@ -17,7 +17,7 @@ imageio-ffmpeg
 
 # 數學處理
 numpy
-scipy
+scipy==1.11.4
 
 # 其他
 tqdm
