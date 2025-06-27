@@ -47,6 +47,10 @@ if uploaded_video and uploaded_audio:
             result = run(["python", "main.py"], capture_output=True, text=True)
             st.text(result.stdout)
 
+            if result.stderr:
+                st.error("⚠️ 發生錯誤：")
+                st.code(result.stderr, language="bash")
+
         if os.path.exists("output/final_full_video.mp4"):
             st.video("output/final_full_video.mp4")
             st.download_button(
