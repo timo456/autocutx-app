@@ -1,5 +1,5 @@
 streamlit
-moviepy>=1.0.3,<2.0
+moviepy==2.0.0.dev2
 numpy
 Pillow
 librosa==0.9.2
