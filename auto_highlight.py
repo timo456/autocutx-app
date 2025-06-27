@@ -10,11 +10,11 @@ def classify_motion_segments(video_path, segments, classify_func, score_threshol
     for idx, (start, end) in enumerate(segments):
         start = float(start)
         end = float(end)
-        print(f"🔍 分析片段 {idx+1}: {start:.2f}s ~ {end:.2f}s")
+        print(f"分析片段 {idx+1}: {start:.2f}s ~ {end:.2f}s")
 
         raw_clip = video.subclip(start, end)
         if raw_clip.duration < 0.1:
-            print("⏭️ 片段太短，跳過")
+            print("⏭片段太短，跳過")
             continue
 
         final_clip = raw_clip.resize(newsize=original_size)
@@ -36,10 +36,10 @@ def classify_motion_segments(video_path, segments, classify_func, score_threshol
         score = float(score.strip(')'))
 
         if score > score_threshold:
-            print(f"✅ 高分動作：{name.strip()} ({score:.2f})")
+            print(f"高分動作：{name.strip()} ({score:.2f})")
             highlight_segments.append((start, end))
         else:
-            print(f"❌ 分數太低：{name.strip()} ({score:.2f})")
+            print(f"分數太低：{name.strip()} ({score:.2f})")
 
     return highlight_segments
 
