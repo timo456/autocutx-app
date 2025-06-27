@@ -1,6 +1,25 @@
+# Streamlit UI
 streamlit>=1.0
+
+# 影片處理
 moviepy==2.0.0.dev2
-numpy
-Pillow
+opencv-python
+
+# 音訊處理
 librosa==0.9.2
+audioread
+soundfile
+
+# 圖片與特效
+pillow
+imageio
+imageio-ffmpeg
+
+# 數學處理
+numpy
+scipy
+
+# 其他
+tqdm
 faster-whisper
+
