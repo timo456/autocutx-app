@@ -10,14 +10,25 @@ st.set_page_config(page_title="AutoCutX 上傳剪輯", layout="centered")
 st.title(" AutoCutX 自動剪輯工具")
 st.markdown("請上傳影片與音訊，系統將自動進行精華剪輯與套用特效")
 
-uploaded_video = st.file_uploader("📹 上傳影片", type=["mp4", "mov", "mpeg4"])
-uploaded_audio = st.file_uploader("🎵 上傳背景音樂 (MP3)", type=["mp3"])
+uploaded_video = st.file_uploader("上傳影片", type=["mp4", "mov", "mpeg4"])
+uploaded_audio = st.file_uploader("上傳背景音樂 (MP3)", type=["mp3"])
 
 if uploaded_video and uploaded_audio:
     # 🔐 防呆處理
     if uploaded_video.size == 0:
         st.error("上傳的影片檔案為空，請重新上傳。")
         st.stop()
+    
+    # 🧹 清除舊檔案
+    for f in [
+        "output/motion_segments.json",
+        "output/beat_times.json",
+        "output/final_full_video.mp4"
+    ]:
+        if os.path.exists(f):
+            os.remove(f)
+            st.warning(f"已刪除舊檔案：{f}")
+
 
     # ⏰ 唯一命名避免衝突
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
