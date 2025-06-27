@@ -3,6 +3,5 @@ moviepy
 numpy
 pillow
 opencv-python
-scikit-learn
 librosa
 faster-whisper
