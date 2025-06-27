@@ -46,15 +46,15 @@ if __name__ == "__main__":
     
     os.makedirs("output", exist_ok=True)
 
-    print("🎵 分析節奏點中...")
+    print("分析節奏點中...")
     beats = extract_beats(audio_path)
     save_beats(beats, "output/beat_times.json")
-    print(f"✅ 節奏點完成，共 {len(beats)} 個拍點")
+    print(f"節奏點完成，共 {len(beats)} 個拍點")
 
-    print("🎬 偵測高動作區段中...")
+    print("偵測高動作區段中...")
     segments = detect_motion_segments(video_path, threshold=3, min_duration=0.2, debug=True)
     save_segments(segments, "output/motion_segments.json")
-    print(f"✅ 動作偵測完成，共 {len(segments)} 段")
+    print(f"動作偵測完成，共 {len(segments)} 段")
 
     if isinstance(segments[0], dict):
         segments = [(float(s["start"]), float(s["end"])) for s in segments]
@@ -63,12 +63,12 @@ if __name__ == "__main__":
     for start, end in segments:
         aligned_start, aligned_end = align_segment_to_beat(start, end, beats)
         aligned_segments.append((aligned_start, aligned_end))
-        print(f"🎯 對齊拍點：{start:.2f}s → {aligned_start:.2f}s")
+        print(f"對齊拍點：{start:.2f}s → {aligned_start:.2f}s")
 
     video = VideoFileClip(video_path)
     video_duration = video.duration
 
-    print("🎯 分析精彩度中...")
+    print("分析精彩度中...")
     highlight_segments = classify_motion_segments(
         video_path,
         aligned_segments,
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     segments_with_flags = split_into_segments_with_highlight(video_duration, highlight_segments)
 
     for start, end, is_hl in segments_with_flags:
-        tag = "🌟" if is_hl else "   "
+        tag = "[H]" if is_hl else "   "
         print(f"{tag} {start:.2f} ~ {end:.2f}")
 
     final_clips = []
@@ -103,12 +103,12 @@ if __name__ == "__main__":
         final_video = concatenate_videoclips(final_clips, method="compose")
 
         if ADD_TEXT :
-            print("🔤 自動產生字幕中...")
+            print("自動產生字幕中...")
             subtitles = generate_subtitles(video_path)
             final_video = overlay_subtitles(final_video, subtitles)
 
         # ✅ 加入完整背景音樂混音
-        print("🔊 合成音訊：背景音樂 + 原聲壓低")
+        print("合成音訊：背景音樂 + 原聲壓低")
         bgm = AudioFileClip(audio_path).volumex(1.0)
 
         audio_duration = min(final_video.duration, video.audio.duration)
@@ -127,6 +127,6 @@ if __name__ == "__main__":
                 "-aspect", "9:16"
             ]
         )
-        print("🎉 完整影片已產生！")
+        print("完整影片已產生！")
     else:
-        print("⚠️ 沒有可輸出的片段。")
+        print("沒有可輸出的片段。")
