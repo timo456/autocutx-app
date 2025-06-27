@@ -52,7 +52,7 @@ if __name__ == "__main__":
     print(f"節奏點完成，共 {len(beats)} 個拍點")
 
     print("偵測高動作區段中...")
-    segments = detect_motion_segments(video_path, threshold=0.1, min_duration=0.2, debug=True)
+    segments = detect_motion_segments(video_path, threshold=0.001, min_duration=0.2, debug=True)
     save_segments(segments, "output/motion_segments.json")
     print(f"動作偵測完成，共 {len(segments)} 段")
 
