@@ -36,8 +36,14 @@ if __name__ == "__main__":
     ADD_LOGO = True
     ADD_TEXT = True
     
-    audio_path = "sample/input.mp3"
-    video_path = "sample/input.mp4"
+    with open("config.json", "r") as f:
+        config = json.load(f)
+    if not config:
+        raise ValueError("配置檔 config.json 讀取失敗或內容為空。請檢查檔案是否存在且格式正確。")
+
+    video_path = config["video_path"]
+    audio_path = config["audio_path"]
+    
     os.makedirs("output", exist_ok=True)
 
     print("🎵 分析節奏點中...")
