@@ -88,6 +88,7 @@ if __name__ == "__main__":
 
     final_clips = []
     for idx, (start, end, is_highlight) in enumerate(segments_with_flags):
+        end = min(end, video.duration)  # ✅ 避免超過長度
         clip = video.subclip(start, end)
 
         if is_highlight:
