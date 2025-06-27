@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 from subprocess import run
+import sys  # 新增這一行
 
 st.set_page_config(page_title="AutoCutX 上傳剪輯", layout="centered")
 st.title(" AutoCutX 自動剪輯工具")
@@ -44,7 +45,7 @@ if uploaded_video and uploaded_audio:
 
     if st.button(" 開始自動剪輯"):
         with st.spinner("影片剪輯中，請稍候..."):
-            result = run(["python", "main.py"], capture_output=True, text=True)
+            result = run([sys.executable, "main.py"], capture_output=True, text=True)
             st.text(result.stdout)
 
             if result.stderr:
