@@ -22,4 +22,5 @@ scipy
 # 其他
 tqdm
 faster-whisper
+matplotlib
 
