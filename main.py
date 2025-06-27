@@ -77,7 +77,7 @@ if __name__ == "__main__":
         video_path,
         aligned_segments,
         classify_func=lambda p: f"motion ({compute_motion_score(p):.2f})",
-        score_threshold=0.5,
+        score_threshold=0.001,
     )
 
     segments_with_flags = split_into_segments_with_highlight(video_duration, highlight_segments)
